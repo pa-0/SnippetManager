@@ -1,20 +1,31 @@
-# SnippetManager
+## SnippetManager
 
-Cross IDE (System Wide) Snippet Manager.
+### Overview
 
-Inspired by rofi.
+- Cross IDE (System-Wide) Snippet Manager.
+- Forked from [**@xQsme**](https://github.com/xQsme/)'s [**SnippetManager**](https://github.com/xQsme/SnippetManager "essentially just a mirror at this point")
+- Inspired by [**@davatorium**](https://github.com/davatorium/)'s [**rofi**](https://github.com/davatorium/rofi) 
+- Currently Windows-only (`C#`), though [**@xQsme**](https://github.com/xQsme/) has expressed an intention to _potentially_ release cross-platform version.
 
-Currently Windows exclusive (C#), might try to make it cross platform soon.
+### Demo Gifs/Videos
 
-## Demo
+_Click on either gif below to view a high quality video demo hosted on YouTube._
+
 <p align="center">
-  <img src="https://media.giphy.com/media/3kwbjJrk1VkY5bORzE/giphy.gif">
-  <a href="https://youtu.be/appOTihaOhE">HD (Youtube)</a>
+  <img src="/htmlsnip.gif">
+  <a href="https://youtu.be/appOTihaOhE"></a>
+<br/>
+<sub>SnippetManager in action</sub>
+<br/>
+  <br/>
+  <img src="/shrugsnip.gif">
+  <a href="https://youtu.be/appOTihaOhE"></a>
 </p>
 
-## Features
-* Configurable shortcut key (Default CTRL+SPACE)
-* List sorted by usage and filtered by input
+### Features
+
+- Configurable shortcut key (Default of original project (and this fork) is currently `CTRL+SPACE`; however, this will likely change in this fork to avoid conflict with PowerToys Peek utility.)
+- List sorted by usage and filtered by input
 * Manage your snippets/macros
 * Light and dark theme support
 * Runs in background with tray icon
