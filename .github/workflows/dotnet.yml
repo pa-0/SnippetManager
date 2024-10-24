@@ -1,0 +1,31 @@
+name: .NET
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v2
+      with:
+        vs-version: 15.0.28307.329
+        msbuild-architecture: x64
+          
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v2.0.0
+     
+    - name: Restore NuGet Packages
+      run: nuget restore SnippetManager/SnippetManager.sln
+ 
+    - name: Build and Publish App
+      run: msbuild SnippetManager/SnippetManager.sln /p:Configuration=Release
+ 
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: SnippetManager
+        path: SnippetManager/bin/Release
