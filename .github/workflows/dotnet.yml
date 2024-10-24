@@ -1,9 +1,11 @@
 name: .NET
 on:
   workflow_dispatch:
+permissions: write
 jobs:
   build:
     runs-on: windows-latest
+    
     steps:
     
     - name: Checkout
@@ -19,10 +21,10 @@ jobs:
       uses: NuGet/setup-nuget@v2.0.0
      
     - name: Restore NuGet Packages
-      run: nuget restore SnippetManager/SnippetManager.sln
+      run: nuget restore SnippetManager.sln
  
     - name: Build and Publish App
-      run: msbuild SnippetManager/SnippetManager.sln /p:Configuration=Release
+      run: msbuild SnippetManager.sln /p:Configuration=Release
  
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.4.3
