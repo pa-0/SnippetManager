@@ -1,6 +1,6 @@
 name: .NET
 on:
-  workflow_dispatch:
+    workflow_dispatch:
 permissions: write-all
 jobs:
   build:
