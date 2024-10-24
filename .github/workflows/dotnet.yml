@@ -24,8 +24,9 @@ jobs:
     - name: Build and Publish App
       run: msbuild SnippetManager/SnippetManager.sln /p:Configuration=Release
  
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1.0.0
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.4.3
       with:
-        name: SnippetManager
-        path: SnippetManager/bin/Release
+        name: snippet_manager
+        # A file, directory or wildcard pattern that describes what to upload
+        path: SnippetManager/bin/Release/*
