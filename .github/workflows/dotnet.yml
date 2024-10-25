@@ -3,8 +3,8 @@ on:
     workflow_dispatch:
 permissions: write-all
 env:
-  CODESIGN_PWD: ${{ secrets.CODESIGN_PWD}}
-  CODESIGN_BASE64: ${{ secrets.CODESIGN_B64}}
+  CODESIGN_PWD: ${{secrets.CODESIGN_PWD}}
+  CODESIGN_BASE64: ${{secrets.CODESIGN_B64}}
   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 jobs:
   build:
@@ -32,17 +32,17 @@ jobs:
     
     - name: Sign executable
       run: |
-          New-Item -ItemType directory -Path certificate
-          Set-Content -Path certificate\certificate.txt -Value $env:CODESIGN_BASE64
-          $BASE64_STR = Get-Content -Path 'certificate\certificate.txt'
-          $filename = 'certificate\certificate.pfx'
-          $bytes = [Convert]::FromBase64String($BASE64_STR)
+          $cr = New-Item -ItemType directory -Path cr
+          Write-Host "New folder created at $cr"
+          $filename = 'cr/cr.pfx'
+          $bytes = [Convert]::FromBase64String($env:CODESIGN_BASE64)
           [IO.File]::WriteAllBytes($filename, $bytes)
-          $bins = Get-ChildItem .\SnippetManager\bin\Release\* -Include "*exe","*dll" -Recurse
+          Write-Host "$filename successfully created."
+          $bins = Get-ChildItem ./SnippetManager/bin/Release/* -Include "*exe","*dll" -Recurse
           foreach ($bin in $bins){
-              & 'C:/Program Files (x86)/Windows Kits/10/bin/10.0.22621.0/x86/signtool.exe' sign /fd SHA256 /d "Snippet Manager" /n "Abbasoft" /p $env:CODESIGN_PWD  /f certificate\certificate.pfx /tr "http://timestamp.sectigo.com/rfc3161" /td sha256 $bin
+              & 'C:/Program Files (x86)/Windows Kits/10/bin/10.0.22621.0/x86/signtool.exe' sign /fd SHA256 /d "Snippet Manager" /n "Abbasoft" /p $env:CODESIGN_PWD  /f $filename /tr "http://timestamp.sectigo.com/rfc3161" /td sha256 $bin
           }
-          Remove-Item -Recurse -Force certificate
+          Remove-Item -Recurse -Force cr
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
